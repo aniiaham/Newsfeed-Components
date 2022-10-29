@@ -86,6 +86,12 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  }, {
+    title: 'Hello World!',
+    date: 'Feb 22nd, 1999',
+    firstParagraph: `Lorem ipsum loremso ipsumso lorem ipsum.Lorem ipsum loremso ipsumso. Lorem ipsum loremso, Lorem ipsum loremso ipsumso lorem ipsum.`, 
+    secondParagraph: `0`,
+    thirdParagraph: `fdogjpsekdfjgpes`
   }
 ];
 
@@ -102,6 +108,7 @@ const data = [
 
     <span class="expandButton">+</span>
   </div>
+  
 
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
@@ -114,3 +121,71 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+/*
+  <div class="article">
+    <h2>{title of the article}</h2>
+    <p class="date">{date of the article}</p>
+
+    {three separate paragraph elements}
+
+    <span class="expandButton">+</span>
+  </div>
+*/
+
+
+//going to use map or 4each, bec we are passing an array of objects, that is why we have to use map or foureach
+//we need to add the classes with their perspective element
+//we will use dot notation to get the info inside the object 
+//look at the provided html segment for reference
+//create a p for each paragraph, example, after mapping/foreaching => item.firstParagraph, item.secondParagraph, etc
+
+
+function articleMaker(article){
+  // console.log(article)
+  const createDiv = document.createElement("div");  
+  const h2 = document.createElement("h2");
+  const createP = document.createElement("p");
+  const p1 = document.createElement("p");
+  const p2 = document.createElement("p");
+  const p3 = document.createElement("p");
+  const createSpan = document.createElement("span");
+
+  createDiv.appendChild(h2);
+  createDiv.appendChild(createP);
+  createDiv.appendChild(p1);
+  createDiv.appendChild(p2);
+  createDiv.appendChild(p3);
+  createDiv.appendChild(createSpan);
+
+  createDiv.classList.add("article");
+  createP.classList.add("date");
+  createSpan.classList.add("expandButton");
+  
+  h2.textContent = article.title;
+  createP.textContent = article.date;
+  p1.textContent = article.firstParagraph;
+  p2.textContent = article.secondParagraph;
+  p3.textContent = article.thirdParagraph;
+  createSpan.textContent = "+";
+
+  createSpan.addEventListener("click", event => {
+    createDiv.classList.toggle("article-open")
+  })
+  // console.log(createDiv)
+
+  return createDiv
+
+
+}
+
+  const articlesDiv = document.querySelector(".articles");
+  const createArticles = data.map(article => {
+   const makeArticleDiv = articleMaker(article)
+    return articlesDiv.appendChild(makeArticleDiv);
+})
+
+
+// articleMaker(data);
+
+
